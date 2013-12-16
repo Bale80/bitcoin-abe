@@ -39,7 +39,7 @@ import base58
 
 __version__ = version.__version__
 
-ABE_APPNAME = "Abe"
+ABE_APPNAME = "Netcoin Explorer"
 ABE_VERSION = __version__
 ABE_URL = 'https://github.com/bitcoin-abe/bitcoin-abe'
 
@@ -49,6 +49,7 @@ COPYRIGHT_URL = 'https://github.com/bitcoin-abe'
 
 DONATIONS_BTC = '1PWC7PNHL1SgvZaN7xEtygenKjWobWsCuf'
 DONATIONS_NMC = 'NJ3MSELK1cWnqUa6xhF2wUYAnz3RSrWXcK'
+DONATIONS_NET = 'n5GstmMPfZQjNeAUZ8waZyY9bxHZhihm2g'
 
 TIME1970 = time.strptime('1970-01-01','%Y-%m-%d')
 EPOCH1970 = calendar.timegm(TIME1970)
@@ -62,25 +63,28 @@ DEFAULT_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css"
-     href="%(dotdot)s%(STATIC_PATH)sabe.css" />
+	
+	<link rel="stylesheet" href="%(dotdot)s%(STATIC_PATH)sbootstrap.min.css" />
+	<link rel="stylesheet" href="%(dotdot)s%(STATIC_PATH)sbootstrap-theme.min" />	
     <link rel="shortcut icon" href="%(dotdot)s%(STATIC_PATH)sfavicon.ico" />
     <title>%(title)s</title>
 </head>
 <body>
-    <h1><a href="%(dotdot)s%(HOMEPAGE)s"><img
-     src="%(dotdot)s%(STATIC_PATH)slogo32.png" alt="Abe logo" /></a> %(h1)s
-    </h1>
+    <h1><table><tr><td class="header"><a href="%(dotdot)s%(HOMEPAGE)s"><img
+     src="%(dotdot)s%(STATIC_PATH)snetcoin.jpg" alt="Netcoin logo" /></a> %(h1)s
+    </td></tr></table></h1>
     %(body)s
     <p><a href="%(dotdot)sq">API</a> (machine-readable pages)</p>
     <p style="font-size: smaller">
         <span style="font-style: italic">
-            Powered by <a href="%(ABE_URL)s">%(APPNAME)s</a>
+            Powered by <a href="%(ABE_URL)s">Abe</a>
         </span>
         %(download)s
         Tips appreciated!
         <a href="%(dotdot)saddress/%(DONATIONS_BTC)s">BTC</a>
         <a href="%(dotdot)saddress/%(DONATIONS_NMC)s">NMC</a>
+		<br /><br />Support Netcoin Explorer @
+        <a href="%(dotdot)saddress/%(DONATIONS_NET)s">NET</a>
     </p>
 </body>
 </html>
@@ -285,11 +289,11 @@ class Abe:
         return getattr(abe, 'handle_' + cmd, None)
 
     def handle_chains(abe, page):
-        page['title'] = ABE_APPNAME + ' Search'
+        page['title'] = ABE_APPNAME
         body = page['body']
         body += [
             abe.search_form(page),
-            '<table>\n',
+            '<table class="table">\n',
             '<tr><th>Currency</th><th>Code</th><th>Block</th><th>Time</th>',
             '<th>Started</th><th>Age (days)</th><th>Coins Created</th>',
             '<th>Avg Coin Age</th><th>',
@@ -2186,6 +2190,7 @@ def main(argv):
             "COPYRIGHT_URL": COPYRIGHT_URL,
             "DONATIONS_BTC": DONATIONS_BTC,
             "DONATIONS_NMC": DONATIONS_NMC,
+			"DONATIONS_NET": DONATIONS_NET,
             "CONTENT_TYPE": DEFAULT_CONTENT_TYPE,
             "HOMEPAGE": DEFAULT_HOMEPAGE,
             },

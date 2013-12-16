@@ -72,6 +72,8 @@ CHAIN_CONFIG = [
      "code3":"SC0", "address_version":"\x6f", "magic":"\xca\xfe\xba\xbe"},
     {"chain":"Worldcoin",
      "code3":"WDC", "address_version":"\x49", "magic":"\xfb\xc0\xb6\xdb"},
+    {"chain":"Netcoin",
+     "code3":"NET", "address_version":"\x70", "magic":"\xfd\xb6\xa5\xdb"},
     #{"chain":"",
     # "code3":"", "address_version":"\x", "magic":""},
     ]
@@ -108,8 +110,9 @@ class MerkleRootMismatch(InvalidBlock):
         ex.block_hash = block_hash
         ex.tx_hashes = tx_hashes
     def __str__(ex):
-        return 'Block header Merkle root does not match its transactions. ' \
-            'block hash=%s' % (ex.block_hash[::-1].encode('hex'),)
+	  pass
+    #    return 'Block header Merkle root does not match its transactions. ' \
+    #        'block hash=%s' % (ex.block_hash[::-1].encode('hex'),)
 
 class DataStore(object):
 
@@ -1755,7 +1758,8 @@ store._ddl['txout_approx'],
 
         # Verify Merkle root.
         if b['hashMerkleRoot'] != util.merkle(tx_hash_array):
-            raise MerkleRootMismatch(b['hash'], tx_hash_array)
+		    pass
+            #raise MerkleRootMismatch(b['hash'], tx_hash_array)
 
         # Look for the parent block.
         hashPrev = b['hashPrev']
